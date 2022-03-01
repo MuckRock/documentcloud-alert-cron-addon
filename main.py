@@ -19,7 +19,7 @@ class Alert(CronAddOn):
         documents = list(documents)
         if documents:
             message = [f"Documents found at {datetime.now()}"]
-            message.extend([f"{d.title} - {d.cnaonical_url}"])
+            message.extend([f"{d.title} - {d.canonical_url}" for d in documents])
             self.send_mail(f"New documents found for: {QUERY}", "\n".join(message))
 
 
