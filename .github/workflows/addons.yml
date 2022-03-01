@@ -1,14 +1,15 @@
 
 name: Add-On
-on: repository_dispatch
+on:
+  schedule:
+    # Run at 17 past the hour, every hour, Monday through Friday
+    - cron:  "17 * * * 1-5"
 
 jobs:
   Run-Add-On:
     runs-on: ubuntu-latest
     timeout-minutes: 1
     steps:
-      - name: ${{ github.event.client_payload.id }}
-        run: echo run identifier ${{ github.event.client_payload.id }}
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -24,4 +25,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - run: python main.py '${{ toJSON(github.event.client_payload) }}'
+      - run: python main.py
+        env:
+          DC_USERNAME: ${{ secrets.DC_USERNAME }}
+          DC_PASSWORD: ${{ secrets.DC_PASSWORD }}

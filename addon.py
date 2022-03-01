@@ -87,3 +87,18 @@ class AddOn:
         return self.client.post(
             "messages/", json={"subject": subject, "content": content}
         )
+
+
+class CronAddOn:
+    """Base functionality for a Cron AddOn"""
+
+    def __init__(self):
+        self.client = documentcloud.DocumentCloud(
+            username=os.environ["DC_USERNAME"], password=os.environ["DC_PASSWORD"]
+        )
+
+    def send_mail(self, subject, content):
+        """Send yourself an email"""
+        return self.client.post(
+            "messages/", json={"subject": subject, "content": content}
+        )
