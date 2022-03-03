@@ -8,7 +8,7 @@ This one will alert of new documents matching a given search query
 
 from datetime import datetime
 
-from addon import CronAddOn
+from documentcloud.addon import CronAddOn
 
 QUERY = "+user:mitchell-kotler-20080"
 
