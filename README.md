@@ -56,10 +56,6 @@ python packages to be installed before running the Add-On.  You may add any
 dependencies your Add-On has here.  By default we install the
 `python-documentcloud` API library and the `requests` HTTP request package.
 
-### test_addon.py
-
-TODO
-
 ### .github/workflows/addons.yml
 
 This is the GitHub Actions configuration file.  We have a very simple workflow
