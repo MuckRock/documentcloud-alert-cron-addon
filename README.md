@@ -58,10 +58,28 @@ dependencies your Add-On has here.  By default we install the
 
 ### .github/workflows/addons.yml
 
-This is the GitHub Actions configuration file.  We have a very simple workflow
-defined, which sets up python, installes dependencies and runs the `main.py` to
-start the Cron Add-On.  It should not need to be edited in most cases, unless
-you have an advanced use case.
+This is the GitHub Actions configuration file for running the add-on.  It
+references a reusable workflow from the
+`MuckRock/documentcloud-addon-workflows` repository.  This workflow sets up
+python, installs dependencies and runs the `main.py` to start the Add-On. It
+accepts two inputs:
+* `timeout` - Number of minutes to time out.  The default is `5`.  You may
+  increase this if your add-on will run for longer than that.
+* `python-version` - The version of python you would like to use.  Defaults to `3.10`.
+
+To set an input:
+```yaml
+jobs:
+  Run-Add-On:
+    uses: MuckRock/documentcloud-addon-workflows/.github/workflows/update-config.yml@v1
+    with:
+      timeout: 30
+```
+
+It is recommended you use the reusable workflow in order to receive future
+improvements to the workflow.  If needed you may fork the reusable workflow and
+edit it as needed. If you do edit it, you should leave the first step in place,
+which uses the UUID as its name, to allow DocumentCloud to identify the run.
 
 It would be possible to make a similar workflow for other programming languages
 if one wanted to write Cron Add-Ons in a language besides Python.
